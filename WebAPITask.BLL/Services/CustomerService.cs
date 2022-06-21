@@ -20,6 +20,7 @@ namespace WebAPITask.BLL.Services
             _mapper = mapper;
         }
 
+
         public async Task<List<CustomerViewModel>> GetAllCustomers()
         {
             var entityList = _unitOfWork.CustomerRepository.GetAll();

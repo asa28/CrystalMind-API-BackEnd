@@ -20,13 +20,13 @@ namespace WebAPITask.BLL.Services
             _mapper = mapper;
         }
 
+
         public async Task<List<CustomerAddressViewModel>> GetAllCustomerAddressesByCustomerId(Guid customerId)
         {
-            var addressList = _unitOfWork.CustomerAddressRepository.getAllbyCustomerId(x => x.CustomerId == customerId);
+            var addressList = _unitOfWork.CustomerAddressRepository.getAllAddressesbyCustomerId(customerId);
             var addressListModel = _mapper.Map<List<CustomerAddressViewModel>>(addressList);
             return await Task.FromResult(addressListModel);
         }
-
         public async Task<CustomerAddressViewModel> GetCustomerAddressByAddressId(Guid id)
         {
             var addressEntity = _unitOfWork.CustomerAddressRepository.FindById(id);

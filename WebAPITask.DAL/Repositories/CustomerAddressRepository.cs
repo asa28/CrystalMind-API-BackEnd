@@ -18,7 +18,7 @@ namespace WebAPITask.DAL.Repositories
 
 
 
-        public IEnumerable<CustomerAddress> getAllbyCustomerId(
+        public IEnumerable<CustomerAddress> getAllbyCustomFilter(
             Expression<Func<CustomerAddress, bool>> filter = null,Func<IQueryable<CustomerAddress>, IOrderedQueryable<CustomerAddress>> orderBy = null)
         {
             IQueryable<CustomerAddress> query = _context.Set<CustomerAddress>();
@@ -38,7 +38,10 @@ namespace WebAPITask.DAL.Repositories
             }
         }
 
-
+        public List<CustomerAddress> getAllAddressesbyCustomerId(Guid customerId)
+        {
+            return _context.CustomerAddresses.Where(x => x.CustomerId == customerId).ToList();
+        }
         public void Add(CustomerAddress entity)
         {
             _context.Set<CustomerAddress>().Add(entity);
@@ -66,8 +69,9 @@ namespace WebAPITask.DAL.Repositories
 
     public interface ICustomerAddressRepository
     {
-        IEnumerable<CustomerAddress> getAllbyCustomerId(
+        IEnumerable<CustomerAddress> getAllbyCustomFilter(
             Expression<Func<CustomerAddress, bool>> filter = null, Func<IQueryable<CustomerAddress>, IOrderedQueryable<CustomerAddress>> orderBy = null);
+        List<CustomerAddress> getAllAddressesbyCustomerId(Guid customerId);
         void Add(CustomerAddress entity);
         List<CustomerAddress> GetAll();
         CustomerAddress FindById(Guid Id);
